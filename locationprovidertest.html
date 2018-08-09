@@ -17,56 +17,93 @@
   $(document)
     .ready(function() {
         
-/* FAKE CONTENT*/
-var fakecontent = [
+        /* local test
+        var fakecontent = [
             { title: 'Andorra' },
             { title: 'United Arab Emirates' },
             { title: 'Afghanistan' },
             { title: 'Antigua' },
             { title: 'Anguilla' },
-            { title: 'Albania' },
-            { title: 'Armenia' },
-            { title: 'Netherlands Antilles' },
-            { title: 'Angola' },
-            { title: 'Argentina' },
-            { title: 'American Samoa' },
-            { title: 'Austria' },
-            { title: 'Australia' },
-            { title: 'Aruba' },
-            { title: 'Aland Islands' },
-            { title: 'Azerbaijan' },
-            { title: 'Bosnia' },
-            { title: 'Barbados' },
-            { title: 'Bangladesh' },
-            { title: 'Belgium' },
-            { title: 'Burkina Faso' },
-            { title: 'Bulgaria' },
-            { title: 'Bahrain' },
-            { title: 'Burundi' }
+            { title: 'Albania' }
           ];
-      
-      $('.ui.search').search({ source: fakecontent });
+        $('.ui.search').search({ source: fakecontent });
+        */
+
+        //https://stackoverflow.com/questions/28782521/how-can-you-modify-the-results-in-semantic-ui-search-module
+        $('.ui.search').search({ 
+            apiSettings: {
+                url: 'https://nominatim.openstreetmap.org/search?format=json&countrycodes=it&q={query}',
+                onResponse: function(apiresponse) {
+                    //questo metodo è necessario per manipolare la risposra dell'api, il controllo si aspetta l'array dei risultati in una proprieta della response e non nella root
+                    //se fosse stato cosi bastava rimappare i field dell'api con quelli del controllo search tramite la proprietà "fields" 
+                    console.log(apiresponse);
+
+                    var response = { 
+                        results: []  //[{"title" : "aaaaa"},{"title" : "bbbb"}]
+                    };
+
+                    $.each(apiresponse, function (index, item) {
+                        response.results.push({
+                            title: item.display_name
+                        });
+                    });
+
+                    return response;
+                }
+            },
+            fields: {
+                results : 'results',
+                title   : 'title' //,
+                //url     : 'display_name'
+            },
+            minCharacters : 3,
+            searchDelay: 350
+        });
 
 
 
-        var callGeocoderApi = function callGeocoderApi(a) {
-                console.log(a);
-        }
-        
-       
-        var trottleWrapper = $.debounce(350, callGeocoderApi);
-      //onInpunt doesn't work IE version < 9.  VERIFY
-      //verify errow function compatibility
-      $('.ui.search > .prompt').on('input', (e) => {
-        //http://benalman.com/projects/jquery-throttle-debounce-plugin/
-        //$.debounce( 250, callGeocoderApi(e.target.value));  //cosi non funziona indagare perche
-        trottleWrapper(e.target.value);  //cosi non funziona
-      });
-
-      
-       
-     
-     
+         /* result example
+            [
+                {
+                    "place_id": "178104436",
+                    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+                    "osm_type": "relation",
+                    "osm_id": "41485",
+                    "boundingbox": [
+                        "41.6556417",
+                        "42.1410285",
+                        "12.2344669",
+                        "12.8557603"
+                    ],
+                    "lat": "41.8933203",
+                    "lon": "12.4829321",
+                    "display_name": "Roma, RM, LAZ, Italia",
+                    "class": "place",
+                    "type": "city",
+                    "importance": 0.82686368688662,
+                    "icon": "https://nominatim.openstreetmap.org/images/mapicons/poi_place_city.p.20.png"
+                },
+                {
+                    "place_id": "178486693",
+                    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+                    "osm_type": "relation",
+                    "osm_id": "41313",
+                    "boundingbox": [
+                        "41.4075808",
+                        "42.2969953",
+                        "11.7337425",
+                        "13.2962768"
+                    ],
+                    "lat": "41.85233365",
+                    "lon": "12.6308541512038",
+                    "display_name": "RM, LAZ, Italia",
+                    "class": "boundary",
+                    "type": "administrative",
+                    "importance": 0.45,
+                    "icon": "https://nominatim.openstreetmap.org/images/mapicons/poi_boundary_administrative.p.20.png"
+                }
+            ]
+            */
 
     });
   </script>
