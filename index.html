@@ -27,11 +27,14 @@
       background-position: center;
     }
  
-    h1.bannertext  {
-      
-    }
-    h2.bannertext  {
-      
+    /* https://css-tricks.com/adding-stroke-to-web-text/ */
+    h1.bannertext, h2.bannertext  {
+      color: white;
+      text-shadow:
+      -1px -1px 0 rgba(0,0,0,.5),  
+      1px -1px 0 rgba(0,0,0,.5),
+      -1px 1px 0 rgba(0,0,0,.5),
+      1px 1px 0 rgba(0,0,0,.5);
     }
 
     /* 
@@ -153,7 +156,7 @@
                 onResponse: function(apiresponse) {
                     //questo metodo è necessario per manipolare la risposra dell'api, il controllo si aspetta l'array dei risultati in una proprieta della response e non nella root
                     //se fosse stato cosi bastava rimappare i field dell'api con quelli del controllo search tramite la proprietà "fields" 
-                    console.log(apiresponse);
+                    
 
                     var response = { 
                         results: []  //[{"title" : "aaaaa"},{"title" : "bbbb"}]
@@ -176,10 +179,6 @@
             minCharacters : 3,
             searchDelay: 350
         });
-
-
-
-
     });
   </script>
 </head>
@@ -224,10 +223,10 @@
   <div class="ui inverted vertical masthead center aligned segment">
       <div class="ui container">
         <h1 class="ui inverted header bannertext">
-          Mai-più-sprechi
+          Mai più sprechi
         </h1>
         <!--<h2>Do whatever you want when you want to.</h2>-->
-        <h2 class="bannertext">Mettiamo in contatto chi ha bisogno di cibo con chi ne ha in abbondanza.</h2>
+        <h2 class="ui inverted huge header bannertext">Mettiamo in contatto chi ha bisogno di cibo con chi ne ha in abbondanza.</h2>
         
         <div class="ui search">
           
