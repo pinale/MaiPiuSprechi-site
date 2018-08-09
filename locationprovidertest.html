@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>Location Provider test page</title>
+  <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="assets/library/jquery.ba-throttle-debounce.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>
+
+  <script>
+  $(document)
+    .ready(function() {
+        
+/* FAKE CONTENT*/
+var fakecontent = [
+            { title: 'Andorra' },
+            { title: 'United Arab Emirates' },
+            { title: 'Afghanistan' },
+            { title: 'Antigua' },
+            { title: 'Anguilla' },
+            { title: 'Albania' },
+            { title: 'Armenia' },
+            { title: 'Netherlands Antilles' },
+            { title: 'Angola' },
+            { title: 'Argentina' },
+            { title: 'American Samoa' },
+            { title: 'Austria' },
+            { title: 'Australia' },
+            { title: 'Aruba' },
+            { title: 'Aland Islands' },
+            { title: 'Azerbaijan' },
+            { title: 'Bosnia' },
+            { title: 'Barbados' },
+            { title: 'Bangladesh' },
+            { title: 'Belgium' },
+            { title: 'Burkina Faso' },
+            { title: 'Bulgaria' },
+            { title: 'Bahrain' },
+            { title: 'Burundi' }
+          ];
+      
+      $('.ui.search').search({ source: fakecontent });
+
+
+
+        var callGeocoderApi = function callGeocoderApi(a) {
+                console.log(a);
+        }
+        
+       
+        var trottleWrapper = $.debounce(350, callGeocoderApi);
+      //onInpunt doesn't work IE version < 9.  VERIFY
+      //verify errow function compatibility
+      $('.ui.search > .prompt').on('input', (e) => {
+        //http://benalman.com/projects/jquery-throttle-debounce-plugin/
+        //$.debounce( 250, callGeocoderApi(e.target.value));  //cosi non funziona indagare perche
+        trottleWrapper(e.target.value);  //cosi non funziona
+      });
+
+      
+       
+     
+     
+
+    });
+  </script>
+</head>
+<body>
+<div class="ui container">
+    <!-- with semantic-ui search [autocomplete] -->
+    <div class="ui segment">
+        <h1 class="ui header">Semantic-ui Search module - autocomplete</h1>
+
+        <div class="ui search">
+            <input class="prompt" type="text" placeholder="Places...">
+            <div class="results"></div>
+        </div>
+    
+    </div>
+</div>
+</body>
+</html>
