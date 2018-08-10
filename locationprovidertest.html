@@ -11,7 +11,22 @@
   <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>
+<style>
+    
 
+    .ui.accordion > .title {
+        display: none; /* nasconde  le maniglie dell'arccordion */
+    }
+
+    .panelmap {
+        min-height: 300px;
+        background-color: bisque;
+    }
+    .paneltable {
+        min-height: 300px;
+        background-color: burlywood;
+    }
+</style>
   <script>
   $(document)
     .ready(function() {
@@ -56,7 +71,15 @@
                 //url     : 'display_name'
             },
             minCharacters : 3,
-            searchDelay: 350
+            searchDelay: 350,
+            onSelect(result, response)
+            {
+                //apro l'accordion della mappa
+                console.log(result);
+                $('.ui.accordion').accordion('open ', 0);  //open non toggle, altrimentri se era aperta la chiude
+
+                //return false;  previene il compartamnto di defult cioe chidere la selezioni
+            }
         });
 
 
@@ -80,7 +103,14 @@
                     "class": "place",
                     "type": "city",
                     "importance": 0.82686368688662,
-                    "icon": "https://nominatim.openstreetmap.org/images/mapicons/poi_place_city.p.20.png"
+                    "icon": "https://nominatim.openstreetmap.org/images/mapicons/poi_place_city.p.20.png",
+                    "address": {
+                        "city": "Roma",
+                        "county": "RM",
+                        "state": "LAZ",
+                        "country": "Italia",
+                        "country_code": "it"
+                    }
                 },
                 {
                     "place_id": "178486693",
@@ -99,10 +129,28 @@
                     "class": "boundary",
                     "type": "administrative",
                     "importance": 0.45,
-                    "icon": "https://nominatim.openstreetmap.org/images/mapicons/poi_boundary_administrative.p.20.png"
+                    "icon": "https://nominatim.openstreetmap.org/images/mapicons/poi_boundary_administrative.p.20.png",
+                    "address": {
+                        "county": "RM",
+                        "state": "LAZ",
+                        "country": "Italia",
+                        "country_code": "it"
+                    }
                 }
             ]
             */
+
+
+
+            /* Accordion */
+            $('.ui.accordion').accordion({  silent: false});
+
+            $('#togglemap').click(() => {
+                $('.ui.accordion').accordion('toggle', 0);
+            });
+            $('#toggletable').click(() => {
+                $('.ui.accordion').accordion('toggle', 1);
+            });
 
     });
   </script>
@@ -113,12 +161,52 @@
     <div class="ui segment">
         <h1 class="ui header">Semantic-ui Search module - autocomplete</h1>
 
-        <div class="ui search">
-            <input class="prompt" type="text" placeholder="Places...">
-            <div class="results"></div>
+        <div class="ui equal width grid">
+            <div class="column">
+            
+                <div class="ui search">
+                    <input class="prompt" type="text" placeholder="Places...">
+                    <div class="results"></div>
+                </div>
+            
+            </div>
+            <div class="right aligned column">
+                <button id="togglemap" class="ui green button">Toggle map</button>
+                <button id="toggletable" class="ui red button">Toggle table</button>
+            </div>
         </div>
     
     </div>
+
+
+    <!-- ACCORDION - for collassable panel-->
+    <div class="ui accordion">
+        
+        <div class="title"><!-- display: none-->
+          <i class="dropdown icon"></i>
+          Panel map
+        </div>
+
+        <div class="content panelmap">
+          <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+        </div>
+
+        
+        <div class="title"><!-- display: none-->
+          <i class="dropdown icon"></i>
+          Panel grid
+        </div>
+        
+        <div class="content paneltable">
+          <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+        </div>
+    </div>
+
+
+    <div class="ui segment">
+        bottom content
+    </div>
+
 </div>
 </body>
 </html>
