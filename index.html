@@ -10,6 +10,8 @@
   <title>Homepage - Semantic</title>
 
   <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
 
   <style type="text/css">
 
@@ -43,6 +45,27 @@
     */
     .ui.search { display: inline;}
     .ui.search > .results { margin-top: 1.5em; width: 21em;}
+
+
+    /* accourdion */ 
+    .ui.accordion > .title {
+        display: none; /* nasconde  le maniglie dell'arccordion */
+    }
+
+    .panelmap {
+        min-height: 300px;
+        background-color: bisque;
+    }
+    .paneltable {
+        min-height: 300px;
+        background-color: burlywood;
+    }
+
+
+     /* la mappa deve avere un altezza definita */ 
+     #mapid { height: 480px; }
+    /*#mapid { height: 100%; }*/
+
 
     /*  FINE ALESSIO */
 
@@ -140,6 +163,8 @@
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+   integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
 
   <script>
   $(document)
@@ -177,8 +202,103 @@
                 //url     : 'display_name'
             },
             minCharacters : 3,
-            searchDelay: 350
+            searchDelay: 350,
+            onSelect(result, response)
+            {
+                //apro l'accordion della mappa
+                console.log(result);
+                $('.ui.accordion').accordion('open', 0);  //open non toggle, altrimentri se era aperta la chiude
+
+                //return false;  previene il compartamnto di defult cioe chidere la selezioni
+            }
         });
+
+
+        /* Accordion */
+        $('.ui.accordion').accordion({  
+                silent: false,
+                onOpen : function() {
+                        map.invalidateSize(); //ripristina le dimensioni della mappa quando l'accordio ha terminato l'apertura
+                }
+        });
+
+        /*   AGGIUSTARE IN BASE AI TASTI - DA METTERE ANCORA */
+        $('#togglemap').click(() => {
+            //$('.ui.accordion').accordion('toggle', 0);
+            $('.ui.accordion').accordion('open', 0);
+            $('.ui.accordion').accordion('close', 1);
+        });
+        $('#toggletable').click(() => {
+          $('.ui.accordion').accordion('toggle', 1);
+            $('.ui.accordion').accordion('close', 0);
+            $('.ui.accordion').accordion('open', 1);
+        });
+        
+
+
+         /* 
+                token name: testtokencicciottino
+                psw: maipiusprechi
+            */
+            var mapboxtoken = "pk.eyJ1IjoiY2ljY2lvdHRpbm8iLCJhIjoiY2prcW5vM28yMWc2azN1dGRnZWczcGIwNiJ9.yXRNcghA-m75ZXq60UY5Dg";
+
+            /*inizialize the map*/
+            //var mymap = L.map('mapid').setView([-41.3058, 174.82082], 8);
+
+            /*    
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox.streets',
+                accessToken: mapboxtoken
+            }).addTo(mymap);
+            */
+
+            /* markers */
+            //var marker = L.marker([51.5, -0.09]).addTo(mymap);
+            //marker.bindPopup("<b>Hello world!</b><br>I am a popup."); //.openPopup(); 
+
+            /* apre un popoup senza marker, puo servre per piazzare dei messaggio oneshot
+            var popup = L.popup()
+                            .setLatLng([51.5, -0.09])
+                            .setContent("I am a standalone popup.")
+                            .openOn(mymap);
+            */
+
+            /* multiple marker */ 
+            var planes = [
+                ["Pizzeria",41.8573802,12.4705307,18],
+                ["Ristorante",41.8636938,12.4705371,17],
+                ["Supermercato",41.9674316,12.5476399,17],
+                ["Forno",41.9435349,12.4705118,18],
+                ["Forno",41.9243629,12.4019605,16],
+                ["Supermercato",41.9042377,12.4812988,14],
+                ["Forno",41.8863744,12.506197,16],
+                ["Ristorante",41.8840456,12.5103363,16],
+                ["Pizzeria",41.8524282,12.4955204,17]
+                ];
+
+                var map = L.map('mapid').setView([41.9009975,12.4895659,17], 11);
+        mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+            }).addTo(map);
+
+		for (var i = 0; i < planes.length; i++) {
+			marker = new L.marker([planes[i][1],planes[i][2]])
+				.bindPopup(planes[i][0])
+				.addTo(map);
+		}
+
+
+
+
+
+
+
+
     });
   </script>
 </head>
@@ -264,6 +384,44 @@
       -->
     </div>
   </div>
+  
+  <!-- INIZIO ACCORDION -->
+  <!-- ACCORDION - for collassable panel-->
+  <div class="ui accordion">
+        
+      <div class="title"><!-- display: none-->
+        <i class="dropdown icon"></i>
+        Panel map
+      </div>
+
+      <div class="content panelmap">
+        <div class="ui buttons">
+          <button class="ui positive button active">Map</button>
+          <div class="or"></div>
+          <button id="toggletable" class="ui button">Table</button>
+        </div>
+        
+        <div id="mapid"></div>
+        
+      </div>
+
+      
+      <div class="title"><!-- display: none-->
+        <i class="dropdown icon"></i>
+        Panel grid
+      </div>
+      
+      <div class="content paneltable">
+          <div class="ui buttons">
+              <button id="togglemap" class="ui button">Map</button>
+              <div class="or"></div>
+              <button class="ui positive button active">Table</button>
+            </div>
+        <!--<button id="toggletable" class="ui button">Toggle</button>-->
+        <p> TABLE There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+      </div>
+  </div>  
+  <!-- FINE ACCORDION -->
 
   <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
