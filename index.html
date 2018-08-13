@@ -174,8 +174,10 @@
       $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
       
+
+      /* LOCATION SEARCH */
       //https://stackoverflow.com/questions/28782521/how-can-you-modify-the-results-in-semantic-ui-search-module
-      $('.ui.search').search({ 
+      $('.ui.search.location').search({ 
             apiSettings: {
                 url: 'https://nominatim.openstreetmap.org/search?format=json&countrycodes=it&q={query}',
                 onResponse: function(apiresponse) {
@@ -212,6 +214,33 @@
                 //return false;  previene il compartamnto di defult cioe chidere la selezioni
             }
         });
+
+
+        var fakeStuff = [
+                        {
+                          title: 'Pane',
+                          description: 'Pane e prodotti da forno',
+                        },
+                        {
+                          title: 'Carne',
+                          description: 'carne confezionata non piu destinata alla vendita',
+                        }
+                      ];
+
+
+        /* STUFF SEARCH*/
+        $('.ui.search.stuff').search({
+            source: fakeStuff,
+            searchFields: ['title'], 
+            fullTextSearch: false,
+            onSelect(result, response)
+              {
+                  //apro l'accordion della mappa
+                  $('.ui.accordion').accordion('open', 0);  //open non toggle, altrimentri se era aperta la chiude
+
+                  //return false;  previene il compartamnto di defult cioe chidere la selezioni
+              }
+        }); 
 
 
         /* Accordion */
@@ -347,7 +376,7 @@
         </h1>
         <h2 class="ui inverted huge header bannertext">Mettiamo in contatto chi ha bisogno di cibo con chi ne ha in abbondanza.</h2>
         
-        <div class="ui search">
+        <div class="ui search location">
           
           <div class="ui huge left icon input">
             <input type="text" class="prompt" placeholder="Dove...">
@@ -358,7 +387,7 @@
         
         </div>
           
-        <div class="ui search">
+        <div class="ui search stuff">
         
           <div class="ui huge left icon input">
             <input type="text" class="prompt" placeholder="Cosa...">
