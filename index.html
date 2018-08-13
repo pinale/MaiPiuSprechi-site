@@ -54,17 +54,34 @@
 
     .panelmap {
         min-height: 300px;
-        background-color: bisque;
+        position: relative; /* needed to overlap switch buttons on the map, see: .switchmap, .switchtable css class */
     }
     .paneltable {
         min-height: 300px;
-        background-color: burlywood;
+        position: relative; /* needed to overlap switch buttons on the map, see: .switchmap, .switchtable css class */
     }
 
 
      /* la mappa deve avere un altezza definita */ 
      #mapid { height: 480px; }
     /*#mapid { height: 100%; }*/
+
+
+    /* OVERLAP SWITCH BUTTONS ON THE MAP */
+    .switchmap, .switchtable{
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      z-index: 999; /* map z-index is 400 */
+    }
+
+    
+    .closemap, .closetable {
+      position: absolute;
+      right: 165px;
+      top: 10px;
+      z-index: 999; 
+    }
 
 
     /*  FINE ALESSIO */
@@ -251,18 +268,21 @@
                 }
         });
 
-        /*   AGGIUSTARE IN BASE AI TASTI - DA METTERE ANCORA */
+        /*   inzialization SwitchButton Map/table */
         $('#togglemap').click(() => {
-            //$('.ui.accordion').accordion('toggle', 0);
             $('.ui.accordion').accordion('open', 0);
             $('.ui.accordion').accordion('close', 1);
         });
         $('#toggletable').click(() => {
-          $('.ui.accordion').accordion('toggle', 1);
             $('.ui.accordion').accordion('close', 0);
             $('.ui.accordion').accordion('open', 1);
         });
+
         
+        /*   inzialization Close Map/Table */
+        $('.closemap').click(() => { $('.ui.accordion').accordion('close', 0); });
+        $('.closetable').click(() => { $('.ui.accordion').accordion('close', 1); });
+
 
 
          /* 
@@ -424,7 +444,13 @@
       </div>
 
       <div class="content panelmap">
-        <div class="ui buttons">
+        
+        <button class="ui icon negative button closemap">
+            <i class="angle double up icon"></i>
+        </button>              
+          
+        
+        <div class="ui buttons switchmap">
           <button class="ui positive button active">Map</button>
           <div class="or"></div>
           <button id="toggletable" class="ui button">Table</button>
@@ -441,13 +467,64 @@
       </div>
       
       <div class="content paneltable">
-          <div class="ui buttons">
+
+          <button class="ui icon negative button closetable">
+              <i class="angle double up icon"></i>
+          </button>    
+
+          <div class="ui buttons switchtable">
               <button id="togglemap" class="ui button">Map</button>
               <div class="or"></div>
               <button class="ui positive button active">Table</button>
             </div>
         <!--<button id="toggletable" class="ui button">Toggle</button>-->
-        <p> TABLE There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+        
+        <div class="ui basic segment">
+            <div class="ui container">
+            <table class="ui celled table">
+                <thead>
+                  <tr><th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr></thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="ui ribbon label">First</div>
+                    </td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                  </tr>
+                  <tr>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                  </tr>
+                  <tr>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr><th colspan="3">
+                    <div class="ui right floated pagination menu">
+                      <a class="icon item">
+                        <i class="left chevron icon"></i>
+                      </a>
+                      <a class="item">1</a>
+                      <a class="item">2</a>
+                      <a class="item">3</a>
+                      <a class="item">4</a>
+                      <a class="icon item">
+                        <i class="right chevron icon"></i>
+                      </a>
+                    </div>
+                  </th>
+                </tr></tfoot>
+              </table>
+              </div>
+        </div>
       </div>
   </div>  
   <!-- FINE ACCORDION -->
