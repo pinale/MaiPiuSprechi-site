@@ -48,23 +48,28 @@
 
 
     /* accourdion */ 
+
+    .ui.accordion {
+      z-index: 9999;        /* indispensabile per il dimmer (overlay su ricerca), altrimenti viene coperto */
+      position: relative;   /* indispensabile per il dimmer (overlay su ricerca), altrimenti viene coperto */
+    }
+
     .ui.accordion > .title {
         display: none; /* nasconde  le maniglie dell'arccordion */
     }
 
     .panelmap {
-        min-height: 300px;
+        /* min-height: 300px; */  /* senza di questo la chiusura è piu fluida, credo non serva */
         position: relative; /* needed to overlap switch buttons on the map, see: .switchmap, .switchtable css class */
     }
     .paneltable {
-        min-height: 300px;
+        /* min-height: 300px; */ /* senza di questo la chiusura è piu fluida, credo non serva */
         position: relative; /* needed to overlap switch buttons on the map, see: .switchmap, .switchtable css class */
     }
 
-
      /* la mappa deve avere un altezza definita */ 
-     #mapid { height: 480px; }
-    /*#mapid { height: 100%; }*/
+      #mapid { height: 480px; } 
+      /* #mapid { height: 100%; } */
 
 
     /* OVERLAP SWITCH BUTTONS ON THE MAP */
@@ -83,10 +88,7 @@
       z-index: 999; 
     }
 
-    .ui.accordion {
-      z-index: 9999;
-      position: relative;
-    } 
+     
 
 
     /*  FINE ALESSIO */
@@ -229,12 +231,21 @@
             searchDelay: 350,
             onSelect(result, response)
             {
-                //apro l'accordion della mappa
-                console.log(result);
-                $('.ui.accordion').accordion('open', 0);  //open non toggle, altrimentri se era aperta la chiude
+              console.log(result);
 
-                //$('#overlay').dimmer('show');  //settato un alto z-index per l'accordion mapp/tabella
-                dimmer.dimmer('show');
+              //posiziono l'accordion a cetro pagina
+              $('html, body').animate({
+                  scrollTop: ($(window).height() - $('.ui.accordion').offset().top /2)
+              },500);
+              
+              //apro l'accordion della mappa
+
+              $('.ui.accordion').accordion('open', 0);  //open non toggle, altrimentri se era aperta la chiude
+
+              //$('#overlay').dimmer('show');  //settato un alto z-index per l'accordion mapp/tabella
+              dimmer.dimmer('show');
+
+                
                 //return false;  previene il compartamnto di defult cioe chidere la selezioni
             }
         });
@@ -295,12 +306,21 @@
           dimmer.dimmer('hide');
           $('.ui.accordion').accordion('close', 0); 
           
+          //riporto la pagina in alto 
+          $('html, body').animate({
+                  scrollTop: 0
+          },500);
+          
         });
         $('.closetable').click(() => {
           
           dimmer.dimmer('hide');
            $('.ui.accordion').accordion('close', 1); 
-           
+
+          //riporto la pagina in alto 
+          $('html, body').animate({
+                  scrollTop: 0
+          },500);
         });
 
 
