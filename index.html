@@ -235,7 +235,8 @@
 
               //posiziono l'accordion a cetro pagina
               $('html, body').animate({
-                  scrollTop: ($(window).height() - $('.ui.accordion').offset().top /2)
+                  //scrollTop: ($(window).height() - $('.ui.accordion').offset().top /2)
+                  scrollTop: ($(window).height()  - $('.ui.accordion').height() ) / 2 +100
               },500);
               
               //apro l'accordion della mappa
