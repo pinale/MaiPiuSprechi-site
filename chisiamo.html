@@ -105,7 +105,27 @@
 
         $('.ui.basic.modal').modal({
           onVisible: function() {
-            
+            var delay = 200;
+
+            var elementCollection = $('#cuoricini .icon');  //14 cuori
+            elementCollection.sort( function(){ return ( Math.round( Math.random() ) - 0.5 ) } ); //https://stackoverflow.com/questions/5329201/jquery-move-elements-into-a-random-order
+            elementCollection.each(function(index,element) {
+               setTimeout(function() {
+                 $(element).transition({
+                                      animation : 'jiggle',//'fade up',
+                                      duration  : 1200,
+                                      interval  : 200,
+                                      onComplete : function() {
+                                        if (index >= 13)
+                                          setTimeout( $('.ui.basic.modal').modal('hide'),1000);
+                                      }
+                                });
+               },delay);
+              
+              delay += 200;
+            });
+
+            /*
             $('#cuoricini .icon').transition({
                                         animation : 'jiggle',//'fade up',
                                         duration  : 1200,
@@ -115,6 +135,7 @@
                                           //$('.ui.basic.modal').modal('hide');
                                         }
                                       });
+              */
           
           }
         }).modal('show');
