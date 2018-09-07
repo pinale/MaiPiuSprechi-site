@@ -23,41 +23,13 @@
 
 
     #cuoricini {
-      position: absolute;
-      top: 50;
-      left: 10;
-      border: solid 1px green;
-      position: relative;
-      width: 600px;
-      height: 600px;
+      /*border: solid 1px green;*/
     }
 
-    #c1 {
-      position: absolute;
-      top: 10;
-      left: 10;
-      visibility: hidden;
+    #cuoricini .icon {
+      visibility: hidden;  /* alla partenza le nascondo */
     }
-    #c2 {
-      position: absolute;
-      top: 500;
-      left: 500;
-      visibility: hidden;
-    }
-    #c3 {
-      position: absolute;
-      top: 300;
-      left: 50;
-      visibility: hidden;
-    }
-
-     #c4 {
-      position: absolute;
-      top: 400;
-      left: 30;
-      visibility: hidden;
-    }
-
+    
     /*  FINE ALESSIO */
 
 
@@ -133,7 +105,17 @@
 
         $('.ui.basic.modal').modal({
           onVisible: function() {
-            alert('fatto');
+            
+            $('#cuoricini .icon').transition({
+                                        animation : 'jiggle',//'fade up',
+                                        duration  : 1200,
+                                        interval  : 200,
+                                        onComplete : function(e) {
+                                         
+                                          //$('.ui.basic.modal').modal('hide');
+                                        }
+                                      });
+          
           }
         }).modal('show');
 
@@ -280,10 +262,39 @@
       <!-- quoricini sgienda -->
 
       <div id="cuoricini" class="ui basic modal">
+          <div class="ui eight column centered grid">
+              <div class="row">
+                <div class="column"><i class="heart huge red icon"></i></div>
+                <div class="column"><i class="heart massive red icon"></i></div>
+                <div class="column"><i class="heart large red icon"></i></div>
+                <div class="column"></div>
+              </div>
+              <div class="row">
+                <div class="column"><i class="heart massive red icon"></i></div>
+                <div class="column"><i class="heart large red icon"></i></div>
+                <div class="column"><i class="heart huge red icon"></i></div>
+                <div class="column"><i class="heart massive red icon"></i></div>
+              </div>
+              <div class="row">
+                  <div class="column"><i class="heart hoge red icon"></i></div>
+                  <div class="column"><i class="heart massive red icon"></i></div>
+                  <div class="column"><i class="heart large red icon"></i></div>
+                  <div class="column"></div>
+              </div>
+              <div class="row">
+                  <div class="column"><i class="heart huge red icon"></i></div>
+                  <div class="column"><i class="heart large red icon"></i></div>
+                  <div class="column"><i class="heart massive red icon"></i></div>
+                  <div class="column"><i class="heart huge red icon"></i></div>
+              </div>
+          </div>
+        
+        <!--
         <img id="c1" class="ui medium image" src="assets/images/cuore.png" >
         <img id="c2" class="ui tiny image" src="assets/images/cuore.png" >
         <img id="c3" class="ui small image" src="assets/images/cuore.png" >
         <img id="c4" class="ui medium image" src="assets/images/cuore.png" >
+        ->
       </div>
 
     </div>  
