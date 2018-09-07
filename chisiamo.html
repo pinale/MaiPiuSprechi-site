@@ -20,6 +20,44 @@
       opacity: 0.7;
       filter: alpha(opacity=70); /* For IE8 and earlier */
     }
+
+
+    #cuoricini {
+      position: absolute;
+      top: 50;
+      left: 10;
+      border: solid 1px green;
+      position: relative;
+      width: 600px;
+      height: 600px;
+    }
+
+    #c1 {
+      position: absolute;
+      top: 10;
+      left: 10;
+      visibility: hidden;
+    }
+    #c2 {
+      position: absolute;
+      top: 500;
+      left: 500;
+      visibility: hidden;
+    }
+    #c3 {
+      position: absolute;
+      top: 300;
+      left: 50;
+      visibility: hidden;
+    }
+
+     #c4 {
+      position: absolute;
+      top: 400;
+      left: 30;
+      visibility: hidden;
+    }
+
     /*  FINE ALESSIO */
 
 
@@ -89,6 +127,25 @@
       $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
       var dimmer = $('#overlay').dimmer({closable: false});  //la variabile serve? //https://stackoverflow.com/questions/51890533/not-closable-dimmer-reference-variable-or-not
+    
+      /* animazione quoricini sguenda */
+      $("#btnSguenda").click(() => {
+
+        $('.ui.basic.modal').modal({
+          onVisible: function() {
+            alert('fatto');
+          }
+        }).modal('show');
+
+        //$("#c1").transition('fade up');
+        /*
+        $('#cuoricini img').transition({
+                                        animation : 'fade up',
+                                        duration  : 800,
+                                        interval  : 300
+                                      });
+         */
+        });
     });
   </script>
 </head>
@@ -211,7 +268,7 @@
             </div>
           </div>
           <div class="extra content">
-            <button class="ui fluid red button">
+            <button id="btnSguenda" class="ui fluid red button">
               <i class="heart icon"></i>
               Dalle delle crocchette
             </button>
@@ -219,6 +276,16 @@
         </div>
       </div>
       <!-- fine cards -->
+
+      <!-- quoricini sgienda -->
+
+      <div id="cuoricini" class="ui basic modal">
+        <img id="c1" class="ui medium image" src="assets/images/cuore.png" >
+        <img id="c2" class="ui tiny image" src="assets/images/cuore.png" >
+        <img id="c3" class="ui small image" src="assets/images/cuore.png" >
+        <img id="c4" class="ui medium image" src="assets/images/cuore.png" >
+      </div>
+
     </div>  
 
   <div class="ui inverted vertical footer segment">
