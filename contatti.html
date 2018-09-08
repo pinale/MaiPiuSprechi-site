@@ -163,8 +163,8 @@
     <a class="item" href="index.html">Home</a>
     <a class="item">Come funziona</a>
     <a class="item">Non sprecare</a>
-    <a class="active item">Chi siamo</a>
-    <a class="item" href="contatti.html">Contatti</a>
+    <a class="item" href="chisiamo.html">Chi siamo</a>
+    <a class="active item">Contatti</a>
     <a class="item">Blog</a>
     <div class="right menu">
       <div class="item">
@@ -184,8 +184,8 @@
   <a class="item" href="index.html">Home</a>
   <a class="item">Come funziona</a>
   <a class="item">Non sprecare</a>
-  <a class="active item">Chi siamo</a>
-  <a class="item" href="contatti.html">Contatti</a>
+  <a class="item" href="chisiamo.html">Chi siamo</a>
+  <a class="active item">Contatti</a>
   <a class="item">Blog</a>
   <a class="item">Login</a>
   <a class="item">Signup</a>
@@ -199,127 +199,41 @@
     <div class="ui vertical stripe container">
       
         <h2 class="ui center aligned icon header">
-            <i class="circular inverted teal users icon"></i>
+            <i class="circular inverted teal envelope icon"></i>
             <div class="content">
-              Il Team
-              <div class="sub header">Ecco chi si nasconde dietro questo progetto</div>
+              Contatti
+              <div class="sub header">Per qualsiasi informazione non esitare a contattarci</div>
             </div>
           </h2>
 
-
-      <!-- cards -->
-      <div class="ui centered cards">
-        
-        <div class="card">
-          <div class="image">
-            <img src="assets/images/avatar2/large/matthew.png">
-          </div>
-          <div class="content">
-            <div class="header">Alessio P</div>
-            <div class="meta">
-              <a>Founder and IT Manager</a>
-            </div>
-            <div class="description">
-              Matthew is an interior designer living in New York.
-            </div>
-          </div>
-          <div class="extra content">
-            <span class="right floated">
-              <button class="ui primary button">Contatta</button>
-            </span>
-            <span>
-              <a href="https://www.linkedin.com/in/alessio-pinato-76036171/" target="_blank">
-                <i class="linkedin big icon"></i>
-                Linkedin page
-              </a>
-            </span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="image">
-            <img src="assets/images/avatar2/large/molly.png">
-          </div>
-          <div class="content">
-            <div class="header">Kyla M</div>
-            <div class="meta">
-              <span class="date">Social Media and Director of Operations</span>
-            </div>
-            <div class="description">
-              Molly is a personal assistant living in Paris.
-            </div>
-          </div>
-          <div class="extra content">
-            <span class="right floated">
-              <button class="ui primary button">Contatta</button>
-            </span>
-            <span>
-              <i class="linkedin big icon"></i>
-              Linkedin page
-            </span>
-          </div>
-        </div>
-        <div class="card">
-          <div class="image">
-            <img src="assets/images/avatar2/large/elyse.png">
-          </div>
-          <div class="content">
-            <div class="header">Sguenda</div>
-            <div class="meta">
-              <a>Food quality Manager</a>
-            </div>
-            <div class="description">
-              Elyse is a copywriter working in New York.
-            </div>
-          </div>
-          <div class="extra content">
-            <button id="btnSguenda" class="ui fluid red button">
-              <i class="heart icon"></i>
-              Dalle delle crocchette
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- fine cards -->
-
-      <!-- quoricini sgienda -->
-
-      <div id="cuoricini" class="ui basic modal">
-          <div class="ui eight column centered grid">
-              <div class="row">
-                <div class="column"><i class="heart huge red icon"></i></div>
-                <div class="column"><i class="heart massive red icon"></i></div>
-                <div class="column"><i class="heart large red icon"></i></div>
-                <div class="column"></div>
+          <div class="ui segment">
+            <form class="ui form">
+              <div class="field">
+                <label>Nome</label>
+                <input type="text" name="nome" placeholder="First Name">
               </div>
-              <div class="row">
-                <div class="column"><i class="heart massive red icon"></i></div>
-                <div class="column"><i class="heart large red icon"></i></div>
-                <div class="column"><i class="heart huge red icon"></i></div>
-                <div class="column"><i class="heart massive red icon"></i></div>
-              </div>
-              <div class="row">
-                  <div class="column"><i class="heart hoge red icon"></i></div>
-                  <div class="column"><i class="heart massive red icon"></i></div>
-                  <div class="column"><i class="heart large red icon"></i></div>
-                  <div class="column"></div>
-              </div>
-              <div class="row">
-                  <div class="column"><i class="heart huge red icon"></i></div>
-                  <div class="column"><i class="heart large red icon"></i></div>
-                  <div class="column"><i class="heart massive red icon"></i></div>
-                  <div class="column"><i class="heart huge red icon"></i></div>
-              </div>
-          </div>
-        
-        <!--
-        <img id="c1" class="ui medium image" src="assets/images/cuore.png" >
-        <img id="c2" class="ui tiny image" src="assets/images/cuore.png" >
-        <img id="c3" class="ui small image" src="assets/images/cuore.png" >
-        <img id="c4" class="ui medium image" src="assets/images/cuore.png" >
-        ->
-      </div>
 
+              
+              <div class="field">
+                <label>Email</label>
+                <input type="text" placeholder="E-mail">
+              </div>
+                
+              
+
+              <div class="field">
+                <label>Messaggio</label>
+                <textarea name="messaggio" placeholder="Messaggio..."></textarea>
+              </div>
+              <div class="field">
+                <div class="ui checkbox">
+                  <input type="checkbox" tabindex="0" class="hidden">
+                  <label>I agree to the Terms and Conditions</label>
+                </div>
+              </div>
+              <button class="ui button" type="submit">Invia</button>
+            </form>
+          </div>
     </div>  
 
   <div class="ui inverted vertical footer segment">
